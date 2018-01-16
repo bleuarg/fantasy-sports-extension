@@ -8,9 +8,6 @@ import format from 'date-fns/format'
 
 // timer is a global object. If anything goes wrong,
 // we can cancel it with clearInterval(timer)
-var timer = undefined;
-
-//
 var leagueToSportMap = {
   'nba' : 'basketball',
   'hockey' : 'hockey',
@@ -34,7 +31,6 @@ function getEndDate(sport) {
       return '06-01'
   }
 }
-
 
 // Date you want to start setting your active players, YYYY-MM-DD
 // Make sure it's set within the same quotation marks on either side
@@ -95,6 +91,11 @@ daysRemaining = differenceInCalendarDays(secondDate, firstDate);
 generateUrlsToCall(daysRemaining);
 
 
+class RosterSetter {
+  constructor() {
+
+  }
+}
 
 
 
