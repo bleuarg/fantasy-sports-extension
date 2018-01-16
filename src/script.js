@@ -37,6 +37,8 @@
 // I've also left comments in the code if you want to see what's going on
 // underneath the hood.
 
+import leftPad from 'left-pad';
+
 // timer is a global object. If anything goes wrong,
 // we can cancel it with clearInterval(timer)
 var timer = undefined;
@@ -138,7 +140,7 @@ jq.onload = function () {
       if (daysRemaining > 0) {
 
         // Let's create a new URL from your settings
-        startActiveUrl = '//' + sport + '.fantasysports.yahoo.com/' + league + '/' + leagueID + '/' + teamID + '/startactiveplayers?date=' + setNewDate() + '&crumb=' + crumb;
+        startActiveUrl = `//${sport}.fantasysports.yahoo.com/${league}/${leagueID}/${teamID}/startactiveplayers?date=${setNewDate()}&crumb=${crumb}`;
 
         // Here, we're going to use the jQuery script we loaded before to
         // send a GET request. Reason being was to send many requests
@@ -178,15 +180,10 @@ jq.onload = function () {
 
     // Same as in the beginning, if a month or day is a single digit,
     // add a '0' in front of it; again, for Yahoo
-    if (newMonth.toString().length === 1) {
-      newMonth = '0' + newMonth;
-    }
+    leftPad(newMonth, 2, '0');
+    leftPad(newDay, 2, '0');
 
-    if (newDay.toString().length === 1) {
-      newDay = '0' + newDay;
-    }
-
-    return newYear + '-' + newMonth + '-' + newDay;
+    return `${newYear}-${newMonth}-${newDay}`;
   }
 
   // That's it! You're all set to get your lineups rolling with a little code.

@@ -1,0 +1,14 @@
+{
+    "manifest_version": 2,
+    "name": "My Extension",
+    "version": "0.0.1",
+    "default_locale": "en",
+    "description": "Adds the option to set you roster for the whole season in Yahoo Fantasy.",
+    "content_scripts": [
+        {
+          "matches": ["https://*.fantasysports.yahoo.com"],
+          "css": ["mystyles.css"],
+          "js": ["bundle.js"]
+        }
+      ]
+}
