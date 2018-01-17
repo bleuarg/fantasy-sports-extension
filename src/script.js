@@ -1,3 +1,4 @@
+'use strict';
 // Start Active Players in Yahoo Fantasy Hockey League
 
 import leftPad from 'left-pad';
@@ -5,7 +6,9 @@ import pMap from 'p-map';
 import differenceInCalendarDays from 'date-fns/difference_in_days';
 import addDays from 'date-fns/add_days';
 import format from 'date-fns/format';
-
+import URL from 'url-parse';
+import qs from 'qs';
+import css from './styles.css';
 
 // timer is a global object. If anything goes wrong,
 // we can cancel it with clearInterval(timer)
@@ -49,44 +52,85 @@ if (typeof startDate !== 'undefined') {
   date = new Date();
 }
 
-// Undefined variables (for now) to store dates
-var daysRemaining, newYear, newMonth, newDay;
+const authStates = {
+  middleAuth: 'middleauth',
+  signedIn: 'signedin',
+}
 
+
+// todo refactor setup
 const config = {
   league: null,
   sport: null,
   leagueID: null,
   teamID: null,
   crumb: null,
+  authState: null,
+  host: null,
+  protocol: null,
 };
-
-// The URL holds the information to your league and team IDs
-
-// data-authstate="middleauth"
-// data-authstate="signedin"
 
 const url = window.location.pathname.split('/');
 config.league = url[1];
 config.sport = leagueToSportMap[config.league];
 config.leagueID = url[2];
 config.teamID = url[3];
-config.crumb = document.getElementById('yucs-meta').dataset.crumb;
+const startActiveUrl = new URL(document.querySelector('a[href*=startactiveplayers]').href)
+config.crumb = qs.parse(startActiveUrl.query).crumb;
+config.authState = document.getElementById('yucs-meta').dataset.authstate;
+config.host = document.getElementById('yucs-meta').dataset.host;
+config.protocol = document.getElementById('yucs-meta').dataset.protocol;
 
 //new Promise.map(urlsToCall => getUrl(urlsToCall), { concurrency: 4 });
 
 function generateUrlsToCall(daysRemaining) {
   let urls = [];
   let newDay;
-  
+
   for (let i = 0; i < daysRemaining; i++) {
     newDay = addDays(date, i);
-    urls.push(`//${config.sport}.fantasysports.yahoo.com/${config.league}/${config.leagueID}/${config.teamID}/startactiveplayers?date=${format(newDay, 'YYYY-MM-DD')}&crumb=${config.crumb}`);
+    urls.push(`${config.protocol}://${config.host}/${config.league}/${config.leagueID}/${config.teamID}/startactiveplayers?date=${format(newDay, 'YYYY-MM-DD')}&crumb=${config.crumb}`);
   }
-
-  console.log(urls);
 
   return urls;
 }
+
+var total = null;
+var doneCount = 0;
+
+function callUrls(urlsToCall) {
+  total = urlsToCall.length;
+  doneCount = 0;
+  button.classList.add('is-active');
+  refreshDisplay(doneCount, total);
+
+  return pMap(urlsToCall, url => callUrl(url), { concurrency: 5 })
+    .then(() => {
+      console.log('done')
+    }).catch(e => {
+      console.error(e);
+    })
+}
+
+function increment() {
+  doneCount++;
+  refreshDisplay(doneCount, total);
+}
+
+function refreshDisplay(doneCount, total) {
+  const display = `${doneCount}/${total}`;
+  const percentage = `${Math.round(doneCount/total*100)}%`;
+  button.style.background = `linear-gradient(90deg, #0056b7 ${percentage}, #0078ff ${percentage})`;
+  button.setAttribute('data-content', display);
+}
+
+function callUrl(url) {
+  return new Promise(resolve => setTimeout(() => {
+    increment();
+    resolve();
+  }, Math.round(Math.random()*1000)));
+}
+
 
 var firstDate = date;
 var endDateString = (new Date()).getFullYear() + '-' + getEndDate(config.sport);
@@ -94,89 +138,28 @@ var secondDate = new Date(endDateString);
 
 // Calculate the days remaining based on the startDate (or today)
 // and the last game of the season (endOfSeason)
-daysRemaining = differenceInCalendarDays(secondDate, firstDate);
+var daysRemaining = differenceInCalendarDays(secondDate, firstDate);
 
 
+let button = null;
 function addButton() {
   const ref = document.querySelector('a[href*=startactiveplayers]');
-  const link = document.createElement('button');
-  link.className = 'Btn Btn-short Btn-primary Mend-med';
-  link.innerHTML = 'S.A.P. For Remaining Season';
+  button = document.createElement('button');
+  button.className = 'Btn Btn-short Btn-primary Mend-med YSE-StartActive';
+  button.innerHTML = 'From Current Date Till End Of Season';
 
-  link.addEventListener('click', () => {
+  if (config.authState === authStates.middleAuth) {
+    button.classList.add('Btn-disabled');
+    button.disabled = true;
+    button.title = 'You need to click Start Active Players once for this to be active.';
+  }
+
+  button.addEventListener('click', () => {
     console.log('what')
-    generateUrlsToCall(daysRemaining);
+    callUrls(generateUrlsToCall(daysRemaining));
   });
 
-  ref.insertAdjacentElement('afterend', link);
+  ref.insertAdjacentElement('afterend', button);
 }
 
 addButton();
-
-// (function setDaysRemaining () {
-//   // Hours * minutes * seconds * milliseconds
-
-//   var firstDate = date;
-//   var endDateString = (new Date()).getFullYear() + '-' + getEndDate(sport);
-//   var secondDate = new Date(endDateString);
-
-//   // Calculate the days remaining based on the startDate (or today)
-//   // and the last game of the season (endOfSeason)
-//   daysRemaining = differenceInCalendarDays(firstDate, secondDate);
-
-
-
-
-
-
-
-//   // Start a timer, fun
-//   timer = setInterval(function() {
-//     if (daysRemaining > 0) {
-
-//       // Let's create a new URL from your settings
-//       startActiveUrl = `//${config.sport}.fantasysports.yahoo.com/${config.league}/${config.leagueID}/${config.teamID}/startactiveplayers?date=${setNewDate()}&crumb=${crumb}`;
-
-//       // Here, we're going to use the jQuery script we loaded before to
-//       // send a GET request. Reason being was to send many requests
-//       // without having to download any files. Every byte counts for
-//       // us Canadians!
-//       jQuery.get(startActiveUrl);
-
-//       // Little note for you in the console
-//       console.log('Setting roster for: ' + date);
-
-//       daysRemaining -= 1;
-
-//       // Calculate the next date
-//       date.setDate(date.getDate() + 1);
-//     } else {
-//       // If there are no more days remaining from startDate (or today) and
-//       // endOfSeason, cancel the timer and show an alert box
-//       clearInterval(timer);
-//       alert('All of your lineups have been set!');
-//     }
-
-//   // JavaScript time is run in milliseconds
-//   // 1000ms = 1s
-//   // Run the timer every second
-//   }, 500);
-
-// })();
-
-// function setNewDate () {
-//   // From the new date we created, get the values for year, month, day
-//   var newYear = date.getFullYear();
-
-//   // Note: in JavaScript, months run 0 to 11, so April is month 3, not 4
-//   // For Yahoo though, we need the actual month number
-//   var newMonth = date.getMonth() + 1;
-//   var newDay = date.getDate();
-
-//   // Same as in the beginning, if a month or day is a single digit,
-//   // add a '0' in front of it; again, for Yahoo
-//   leftPad(newMonth, 2, '0');
-//   leftPad(newDay, 2, '0');
-
-//   return `${newYear}-${newMonth}-${newDay}`;
-// }
