@@ -18,11 +18,19 @@ module.exports = {
             presets: ['babel-preset-env']
           }
         }
+      },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" }
+        ]
       }
     ],
   },
   plugins: [
-    new UglifyJSPlugin(),
+    //new UglifyJSPlugin(),
     new Jarvis({
       port: 1337 // optional: set a port
     })
