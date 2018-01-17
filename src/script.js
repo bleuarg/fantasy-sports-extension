@@ -20,8 +20,6 @@ var leagueToSportMap = {
 };
 
 function getEndDate(sport) {
-  // Since end dates change season-to-season
-  // We're going to use a default date
   switch (sport) {
     case 'hockey':
       return '04-15';
@@ -70,17 +68,21 @@ const config = {
   protocol: null,
 };
 
-const url = window.location.pathname.split('/');
-config.league = url[1];
-config.sport = leagueToSportMap[config.league];
-config.leagueID = url[2];
-config.teamID = url[3];
+
 const startActiveUrl = new URL(document.querySelector('a[href*=startactiveplayers]').href)
-config.crumb = qs.parse(startActiveUrl.query).crumb;
-config.authState = document.getElementById('yucs-meta').dataset.authstate;
+const url = startActiveUrl.pathname.split('/');
+
 config.host = document.getElementById('yucs-meta').dataset.host;
 config.protocol = document.getElementById('yucs-meta').dataset.protocol;
+config.authState = document.getElementById('yucs-meta').dataset.authstate;
 
+config.league = url[1];
+config.leagueID = url[2];
+config.teamID = url[3];
+config.sport = config.host.split('.')[0];
+config.crumb = qs.parse(startActiveUrl.query).crumb;
+
+console.log(config)
 //new Promise.map(urlsToCall => getUrl(urlsToCall), { concurrency: 4 });
 
 function generateUrlsToCall(daysRemaining) {

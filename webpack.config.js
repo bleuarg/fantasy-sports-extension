@@ -1,6 +1,7 @@
 
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const Jarvis = require('webpack-jarvis');
+const path = require('path');
 
 module.exports = {
   entry: './src/script.js',
@@ -34,5 +35,10 @@ module.exports = {
     new Jarvis({
       port: 1337 // optional: set a port
     })
-  ]
+  ],
+  devServer: {
+    contentBase: path.join(__dirname, 'output'),
+    compress: false,
+    port: 8080
+  }
 };
