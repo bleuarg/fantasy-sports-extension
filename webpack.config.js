@@ -22,7 +22,7 @@ module.exports = {
     ],
   },
   plugins: [
-    //new UglifyJSPlugin(),
+    new UglifyJSPlugin(),
     new Jarvis({
       port: 1337 // optional: set a port
     })

@@ -1,10 +1,11 @@
 // Start Active Players in Yahoo Fantasy Hockey League
 
 import leftPad from 'left-pad';
-import Promise from 'bluebird';
+import pMap from 'p-map';
 import differenceInCalendarDays from 'date-fns/difference_in_days';
-import addDays from 'date-fns/add_days'
-import format from 'date-fns/format'
+import addDays from 'date-fns/add_days';
+import format from 'date-fns/format';
+
 
 // timer is a global object. If anything goes wrong,
 // we can cancel it with clearInterval(timer)
@@ -60,6 +61,10 @@ const config = {
 };
 
 // The URL holds the information to your league and team IDs
+
+// data-authstate="middleauth"
+// data-authstate="signedin"
+
 const url = window.location.pathname.split('/');
 config.league = url[1];
 config.sport = leagueToSportMap[config.league];
@@ -72,11 +77,13 @@ config.crumb = document.getElementById('yucs-meta').dataset.crumb;
 function generateUrlsToCall(daysRemaining) {
   let urls = [];
   let newDay;
-  console.log(daysRemaining)
+  
   for (let i = 0; i < daysRemaining; i++) {
     newDay = addDays(date, i);
     urls.push(`//${config.sport}.fantasysports.yahoo.com/${config.league}/${config.leagueID}/${config.teamID}/startactiveplayers?date=${format(newDay, 'YYYY-MM-DD')}&crumb=${config.crumb}`);
   }
+
+  console.log(urls);
 
   return urls;
 }
@@ -88,19 +95,23 @@ var secondDate = new Date(endDateString);
 // Calculate the days remaining based on the startDate (or today)
 // and the last game of the season (endOfSeason)
 daysRemaining = differenceInCalendarDays(secondDate, firstDate);
-generateUrlsToCall(daysRemaining);
 
 
-class RosterSetter {
-  constructor() {
+function addButton() {
+  const ref = document.querySelector('a[href*=startactiveplayers]');
+  const link = document.createElement('button');
+  link.className = 'Btn Btn-short Btn-primary Mend-med';
+  link.innerHTML = 'S.A.P. For Remaining Season';
 
-  }
+  link.addEventListener('click', () => {
+    console.log('what')
+    generateUrlsToCall(daysRemaining);
+  });
+
+  ref.insertAdjacentElement('afterend', link);
 }
 
-
-
-
-
+addButton();
 
 // (function setDaysRemaining () {
 //   // Hours * minutes * seconds * milliseconds

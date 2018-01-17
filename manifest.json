@@ -7,7 +7,6 @@
     "content_scripts": [
         {
           "matches": ["https://*.fantasysports.yahoo.com"],
-          "css": ["mystyles.css"],
           "js": ["bundle.js"]
         }
       ]

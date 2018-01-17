@@ -1,8 +1,13 @@
 {
+  "name": "yahoo-fantasy-extension",
+  "version": "0.0.1",
+  "author": "Patrick Davies <me@patrickdavies.ca> (https://patrickdavies.ca)",
   "dependencies": {
     "bluebird": "^3.5.1",
+    "console-log-level": "^1.4.0",
     "date-fns": "^1.29.0",
-    "left-pad": "^1.2.0"
+    "left-pad": "^1.2.0",
+    "p-map": "^1.2.0"
   },
   "devDependencies": {
     "ava": "^0.24.0",
