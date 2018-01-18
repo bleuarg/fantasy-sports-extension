@@ -79,7 +79,7 @@ config.teamId = url[3];
 config.sport = config.host.split('.')[0];
 config.crumb = qs.parse(startActiveUrl.query).crumb;
 
-log.trace(config)
+console.log(config)
 //new Promise.map(urlsToCall => getUrl(urlsToCall), { concurrency: 4 });
 
 function generateUrlsToCall(startDate, daysRemaining) {

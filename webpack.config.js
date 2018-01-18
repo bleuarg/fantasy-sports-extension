@@ -1,6 +1,5 @@
 
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const Jarvis = require('webpack-jarvis');
 const path = require('path');
 
 module.exports = {
