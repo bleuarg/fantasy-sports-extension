@@ -3,15 +3,15 @@
 
 import leftPad from 'left-pad';
 import pMap from 'p-map';
-import differenceInCalendarDays from 'date-fns/difference_in_days';
+import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
 import addDays from 'date-fns/add_days';
 import format from 'date-fns/format';
 import URL from 'url-parse';
 import qs from 'qs';
+import settings from './settings.js'
+
 import css from './styles.css';
 
-// timer is a global object. If anything goes wrong,
-// we can cancel it with clearInterval(timer)
 var leagueToSportMap = {
   'nba' : 'basketball',
   'hockey' : 'hockey',
@@ -19,35 +19,30 @@ var leagueToSportMap = {
   'mlb' : 'baseball'
 };
 
+console.trace(settings);
+
 function getEndDate(sport) {
+  let date;
+
   switch (sport) {
     case 'hockey':
-      return '04-15';
+      date = settings.seasonEndingDate.hockey;
+      break;
     case 'football':
-      return '01-15'
+      date = settings.seasonEndingDate.football;
+      break;
     case 'baseball':
-      return '10-15'
+      date = settings.seasonEndingDate.baseball;
+      break;
     case 'basketball':
-      return '05-01'
+      date = settings.seasonEndingDate.basketball;
+      break;
     default:
-      return '06-01'
+      date = settings.seasonEndingDate.default;
+      break;
   }
-}
 
-// Date you want to start setting your active players, YYYY-MM-DD
-// Make sure it's set within the same quotation marks on either side
-// You can leave this commented out; it'll start on today's date
-// var startDate = 'YYYY-MM-DD';
-
-// If you've specified a custom start date, use that
-// If not, use today as a starting point
-
-var date;
-
-if (typeof startDate !== 'undefined') {
-  date = new Date(startDate);
-} else {
-  date = new Date();
+  return date;
 }
 
 const authStates = {
@@ -55,13 +50,12 @@ const authStates = {
   signedIn: 'signedin',
 }
 
-
 // todo refactor setup
 const config = {
   league: null,
   sport: null,
-  leagueID: null,
-  teamID: null,
+  leagueId: null,
+  teamId: null,
   crumb: null,
   authState: null,
   host: null,
@@ -76,22 +70,25 @@ config.host = document.getElementById('yucs-meta').dataset.host;
 config.protocol = document.getElementById('yucs-meta').dataset.protocol;
 config.authState = document.getElementById('yucs-meta').dataset.authstate;
 
+// from pathname: /{league}/{leagueId}/{teamId}
 config.league = url[1];
-config.leagueID = url[2];
-config.teamID = url[3];
+config.leagueId = url[2];
+config.teamId = url[3];
+
+// host is {sport}.fantasysports.yahoo.com
 config.sport = config.host.split('.')[0];
 config.crumb = qs.parse(startActiveUrl.query).crumb;
 
-console.log(config)
+log.trace(config)
 //new Promise.map(urlsToCall => getUrl(urlsToCall), { concurrency: 4 });
 
-function generateUrlsToCall(daysRemaining) {
+function generateUrlsToCall(startDate, daysRemaining) {
   let urls = [];
   let newDay;
 
   for (let i = 0; i < daysRemaining; i++) {
-    newDay = addDays(date, i);
-    urls.push(`${config.protocol}://${config.host}/${config.league}/${config.leagueID}/${config.teamID}/startactiveplayers?date=${format(newDay, 'YYYY-MM-DD')}&crumb=${config.crumb}`);
+    newDay = addDays(startDate, i);
+    urls.push(`${config.protocol}://${config.host}/${config.league}/${config.leagueId}/${config.teamId}/startactiveplayers?date=${format(newDay, 'YYYY-MM-DD')}&crumb=${config.crumb}`);
   }
 
   return urls;
@@ -101,6 +98,7 @@ var total = null;
 var doneCount = 0;
 
 function callUrls(urlsToCall) {
+  console.trace(urlsToCall)
   total = urlsToCall.length;
   doneCount = 0;
   button.classList.add('is-active');
@@ -108,10 +106,17 @@ function callUrls(urlsToCall) {
 
   return pMap(urlsToCall, url => callUrl(url), { concurrency: 5 })
     .then(() => {
-      console.log('done')
+      console.info('Done setting roster')
+      finished();
     }).catch(e => {
+      console.error('Error occured while setting roster.')
       console.error(e);
     })
+}
+
+function finished() {
+  button.classList.remove('is-active');
+  button.style.background = null;
 }
 
 function increment() {
@@ -127,20 +132,17 @@ function refreshDisplay(doneCount, total) {
 }
 
 function callUrl(url) {
-  return new Promise(resolve => setTimeout(() => {
-    increment();
-    resolve();
-  }, Math.round(Math.random()*1000)));
+  //console.log(url);
+
+  return fetch(url, {
+      credentials: 'include'
+    })
+    .then(increment);
 }
 
-
-var firstDate = date;
-var endDateString = (new Date()).getFullYear() + '-' + getEndDate(config.sport);
-var secondDate = new Date(endDateString);
-
-// Calculate the days remaining based on the startDate (or today)
-// and the last game of the season (endOfSeason)
-var daysRemaining = differenceInCalendarDays(secondDate, firstDate);
+var startDate = new Date();
+var endDate = getEndDate(config.sport);
+var daysRemaining = differenceInCalendarDays(endDate, startDate) + 1; // include today
 
 
 let button = null;
@@ -157,8 +159,7 @@ function addButton() {
   }
 
   button.addEventListener('click', () => {
-    console.log('what')
-    callUrls(generateUrlsToCall(daysRemaining));
+    callUrls(generateUrlsToCall(startDate, daysRemaining));
   });
 
   ref.insertAdjacentElement('afterend', button);

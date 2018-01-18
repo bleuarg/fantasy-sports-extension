@@ -2,10 +2,15 @@
   "name": "yahoo-fantasy-extension",
   "version": "0.0.1",
   "author": "Patrick Davies <me@patrickdavies.ca> (https://patrickdavies.ca)",
+  "scripts": {
+    "build": "npm-run-all build:webpack build:gulp",
+    "build:webpack": "webpack",
+    "build:gulp": "gulp build"
+  },
   "dependencies": {
-    "console-log-level": "^1.4.0",
     "date-fns": "^1.29.0",
     "left-pad": "^1.2.0",
+    "loglevel": "^1.6.1",
     "p-map": "^1.2.0",
     "qs": "^6.5.1",
     "url": "^0.11.0"
@@ -17,11 +22,16 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.9",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-util": "^3.0.8",
+    "gulp-zip": "^4.1.0",
+    "npm-run-all": "^4.1.2",
     "style-loader": "^0.19.1",
     "uglifyjs-webpack-plugin": "^1.1.6",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.11.0",
-    "webpack-jarvis": "^0.2.2"
+    "webpack-dev-server": "^2.11.0"
   },
   "ava": {
     "files": [

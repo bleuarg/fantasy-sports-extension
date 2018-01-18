@@ -32,9 +32,6 @@ module.exports = {
   },
   plugins: [
     //new UglifyJSPlugin(),
-    new Jarvis({
-      port: 1337 // optional: set a port
-    })
   ],
   devServer: {
     contentBase: path.join(__dirname, 'output'),
