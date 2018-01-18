@@ -5,7 +5,7 @@ const path = require('path');
 module.exports = {
   entry: './src/script.js',
   output: {
-    filename: 'output/bundle.js'
+    filename: './built/bundle.js'
   },
   module: {
     rules: [

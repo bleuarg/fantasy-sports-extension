@@ -4,8 +4,11 @@
   "author": "Patrick Davies <me@patrickdavies.ca> (https://patrickdavies.ca)",
   "scripts": {
     "build": "npm-run-all build:webpack build:gulp",
+    "start": "npm-run-all --parallel start:*",
     "build:webpack": "webpack",
-    "build:gulp": "gulp build"
+    "build:gulp": "gulp build",
+    "start:webpack": "webpack --watch",
+    "start:gulp": "gulp watch"
   },
   "dependencies": {
     "date-fns": "^1.29.0",

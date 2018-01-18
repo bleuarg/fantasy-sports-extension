@@ -115,8 +115,8 @@ function callUrls(urlsToCall) {
 }
 
 function finished() {
-  button.classList.remove('is-active');
-  button.style.background = null;
+  //button.classList.remove('is-active');
+  //button.style.background = null;
 }
 
 function increment() {
@@ -125,15 +125,15 @@ function increment() {
 }
 
 function refreshDisplay(doneCount, total) {
-  const display = `${doneCount}/${total}`;
   const percentage = `${Math.round(doneCount/total*100)}%`;
+  const display = `${percentage} (click to cancel)`;
   button.style.background = `linear-gradient(90deg, #0056b7 ${percentage}, #0078ff ${percentage})`;
   button.setAttribute('data-content', display);
 }
 
 function callUrl(url) {
   //console.log(url);
-
+  const fetch = () => { return new Promise(resolve => setTimeout(resolve, Math.round(Math.random()*300))) };
   return fetch(url, {
       credentials: 'include'
     })
