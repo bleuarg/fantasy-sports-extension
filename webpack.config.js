@@ -20,14 +20,23 @@ module.exports = {
         }
       },
       {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader'
+      },
+      {
         test: /\.css$/,
         exclude: /node_modules/,
         use: [
-          { loader: "style-loader" },
-          { loader: "css-loader" }
+          { loader: 'style-loader' },
+          { loader: 'css-loader' }
         ]
       }
     ],
+  },
+  performance: {
+    maxAssetSize: 100000,
+    hints: 'warning'
   },
   plugins: [
     //new UglifyJSPlugin(),

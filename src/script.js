@@ -8,16 +8,9 @@ import addDays from 'date-fns/add_days';
 import format from 'date-fns/format';
 import URL from 'url-parse';
 import qs from 'qs';
-import settings from './settings.js'
+import settings from './settings.js';
 
 import css from './styles.css';
-
-var leagueToSportMap = {
-  'nba' : 'basketball',
-  'hockey' : 'hockey',
-  'nfl' : 'football',
-  'mlb' : 'baseball'
-};
 
 function getEndDate(sport) {
   let date;
@@ -46,7 +39,7 @@ function getEndDate(sport) {
 const authStates = {
   middleAuth: 'middleauth',
   signedIn: 'signedin',
-}
+};
 
 // todo refactor setup
 const config = {
@@ -61,7 +54,7 @@ const config = {
 };
 
 
-const startActiveUrl = new URL(document.querySelector('a[href*=startactiveplayers]').href)
+const startActiveUrl = new URL(document.querySelector('a[href*=startactiveplayers]').href);
 const url = startActiveUrl.pathname.split('/');
 var total = null;
 var doneCount = 0;
@@ -97,7 +90,7 @@ function generateUrlsToCall(startDate, daysRemaining) {
 }
 
 function callUrls(urlsToCall) {
-  console.trace(urlsToCall)
+  console.trace(urlsToCall);
   total = urlsToCall.length;
   doneCount = 0;
   button.classList.add('is-active');
@@ -105,12 +98,12 @@ function callUrls(urlsToCall) {
 
   return pMap(urlsToCall, url => callUrl(url), { concurrency: 5 })
     .then(() => {
-      console.info('Done setting roster')
+      console.info('Done setting roster');
       finished();
     }).catch(e => {
-      console.error('Error occured while setting roster.')
+      console.error('Error occured while setting roster.');
       console.error(e);
-    })
+    });
 }
 
 function finished() {
@@ -132,16 +125,16 @@ function refreshDisplay(doneCount, total) {
 
 function callUrl(url) {
   //console.log(url);
-  const fetch = () => { return new Promise(resolve => setTimeout(resolve, Math.round(Math.random()*300))) };
+  const fetch = () => { return new Promise(resolve => setTimeout(resolve, Math.round(Math.random()*300))); };
   return fetch(url, {
     credentials: 'include'
     })
     .then(increment);
 }
 
-
 function addButton() {
   const ref = document.querySelector('a[href*=startactiveplayers]');
+  
   button = document.createElement('button');
   progress = document.createElement('span');
   progress.className = "FSE-StartActive-progress";
