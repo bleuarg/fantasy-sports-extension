@@ -19,8 +19,6 @@ var leagueToSportMap = {
   'mlb' : 'baseball'
 };
 
-console.trace(settings);
-
 function getEndDate(sport) {
   let date;
 
@@ -65,6 +63,13 @@ const config = {
 
 const startActiveUrl = new URL(document.querySelector('a[href*=startactiveplayers]').href)
 const url = startActiveUrl.pathname.split('/');
+var total = null;
+var doneCount = 0;
+var startDate = new Date();
+var endDate = getEndDate(config.sport);
+var daysRemaining = differenceInCalendarDays(endDate, startDate) + 1; // include today
+let button = null;
+let progress = null;
 
 config.host = document.getElementById('yucs-meta').dataset.host;
 config.protocol = document.getElementById('yucs-meta').dataset.protocol;
@@ -79,9 +84,6 @@ config.teamId = url[3];
 config.sport = config.host.split('.')[0];
 config.crumb = qs.parse(startActiveUrl.query).crumb;
 
-console.log(config)
-//new Promise.map(urlsToCall => getUrl(urlsToCall), { concurrency: 4 });
-
 function generateUrlsToCall(startDate, daysRemaining) {
   let urls = [];
   let newDay;
@@ -93,9 +95,6 @@ function generateUrlsToCall(startDate, daysRemaining) {
 
   return urls;
 }
-
-var total = null;
-var doneCount = 0;
 
 function callUrls(urlsToCall) {
   console.trace(urlsToCall)
@@ -127,7 +126,7 @@ function increment() {
 function refreshDisplay(doneCount, total) {
   const percentage = `${Math.round(doneCount/total*100)}%`;
   const display = `${percentage} (click to cancel)`;
-  button.style.background = `linear-gradient(90deg, #0056b7 ${percentage}, #0078ff ${percentage})`;
+  progress.style.width = percentage;
   button.setAttribute('data-content', display);
 }
 
@@ -135,22 +134,22 @@ function callUrl(url) {
   //console.log(url);
   const fetch = () => { return new Promise(resolve => setTimeout(resolve, Math.round(Math.random()*300))) };
   return fetch(url, {
-      credentials: 'include'
+    credentials: 'include'
     })
     .then(increment);
 }
 
-var startDate = new Date();
-var endDate = getEndDate(config.sport);
-var daysRemaining = differenceInCalendarDays(endDate, startDate) + 1; // include today
 
-
-let button = null;
 function addButton() {
   const ref = document.querySelector('a[href*=startactiveplayers]');
   button = document.createElement('button');
-  button.className = 'Btn Btn-short Btn-primary Mend-med YSE-StartActive';
-  button.innerHTML = 'From Current Date Till End Of Season';
+  progress = document.createElement('span');
+  progress.className = "FSE-StartActive-progress";
+
+  button.className = 'Btn Btn-short Btn-primary Mend-med FSE-StartActive';
+  button.innerText = 'From Current Date Till End Of Season';
+  button.appendChild(progress);
+
 
   if (config.authState === authStates.middleAuth) {
     button.classList.add('Btn-disabled');

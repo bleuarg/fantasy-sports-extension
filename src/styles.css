@@ -1,21 +1,32 @@
-.YSE-StartActive {
+.FSE-StartActive {
     position: relative;
 }
-.YSE-StartActive.is-active {
+.FSE-StartActive.is-active {
     color: #0078ff;
 }
-.YSE-StartActive.is-active:before {
-    background: linear-gradient(left, #0056b7 60%, #0078ff);
+.FSE-StartActive.is-active .FSE-StartActive-progress {
+    background: #0056b7;
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: width .3s;
+    width: 0%;
+    z-index: 2;
+}
+.FSE-StartActive.is-active:before {
+    background:  #0078ff;
     content: '';
     display: block;
     height: 100%;
     left: 0;
     position: absolute;
     top: 0;
-    transition: width .3s ease;
     width: 100%;
+    z-index: 1;
 }
-.YSE-StartActive.is-active:after {
+.FSE-StartActive.is-active:after {
     color: #fff;
     content: attr(data-content);
     display: block;
@@ -24,4 +35,5 @@
     top: 50%;
     transform: translateY(-50%);
     width: 100%;
+    z-index: 3;
 }
