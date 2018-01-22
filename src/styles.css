@@ -1,3 +1,7 @@
+#FSE-root {
+    display: inline-block;
+}
+
 .FSE-StartActive {
     position: relative;
 }
