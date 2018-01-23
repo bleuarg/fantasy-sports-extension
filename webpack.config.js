@@ -3,7 +3,6 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const BabelEnginePlugin = require('babel-engine-plugin');
 
 module.exports = {
   entry: './src/main.js',
@@ -22,7 +21,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules\/(?!p\-map)/, //p-map i
+        exclude: /node_modules\/(?!p\-map)/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -46,10 +45,7 @@ module.exports = {
     //   'process.env.NODE_ENV': JSON.stringify('production')
     // }),
     // new UglifyJSPlugin(),
-    new LodashModuleReplacementPlugin(),
-    new BabelEnginePlugin({
-      presets: ['env', 'react']
-    })
+    new LodashModuleReplacementPlugin()
   ],
   devServer: {
     contentBase: path.join(__dirname, 'output'),
