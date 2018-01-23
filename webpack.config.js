@@ -2,7 +2,6 @@
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
-const Jarvis = require('webpack-jarvis');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const BabelEnginePlugin = require('babel-engine-plugin');
 
@@ -51,9 +50,6 @@ module.exports = {
     new BabelEnginePlugin({
       presets: ['env', 'react']
     })
-    // new Jarvis({
-    //   port: 1337
-    // })
   ],
   devServer: {
     contentBase: path.join(__dirname, 'output'),
