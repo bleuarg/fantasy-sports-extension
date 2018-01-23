@@ -7,7 +7,7 @@ class StartActive extends Component {
     this.startActiveService = props.startActiveService;
     this.maxDays = props.maxDays ? props.maxDays : 30;
 
-    
+
     this.state = {
       isBusy: false,
       qtyDone: 0,
@@ -47,13 +47,13 @@ class StartActive extends Component {
     if (isNaN(number)) {
       number = 0;
     }
-    
+
     return `${(number * 100).toFixed(0)}%`;
   }
 
   render() {
     let progressLabel = '';
-    
+
     let percentage = this.getPercentage(this.state.qtyDone, this.state.total);
     if (this.state.isBusy) {
       progressLabel = `${percentage} done`;
@@ -61,10 +61,10 @@ class StartActive extends Component {
 
     let progressStyle = {
       width: percentage
-    }
+    };
 
-    let className = `Btn Btn-short Btn-primary Mend-med FSE-StartActive 
-      ${this.state.isBusy ? 'is-active' : ''} 
+    let className = `Btn Btn-short Btn-primary Mend-med FSE-StartActive
+      ${this.state.isBusy ? 'is-active' : ''}
       ${this.disabled || this.state.isBusy  ? 'Btn-disabled' : ''}`;
 
     return (

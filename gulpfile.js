@@ -10,11 +10,19 @@ gulp.task('copy', () => {
     .pipe(gulp.dest('./built/'));
 });
 
-gulp.task('zip', () => {
-  return gulp.src('./output/**/*')
-    .pipe($.zip('extensionName.zip'));
+gulp.task('package', () => {
+  return gulp.src('./built/**/*')
+    .pipe($.zip('./fse.zip'))
+    .pipe(gulp.dest('./output/'));
 });
 
 gulp.task('watch', () => {
-  gulp.watch('./common/**/*', ['build']);
+  return gulp.watch('./common/**/*', ['build']);
+});
+
+gulp.task('clean', () => {
+  return del([
+    './built/**/*',
+    './output/**/*'
+  ]);
 });
