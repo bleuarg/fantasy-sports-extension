@@ -1,46 +1,79 @@
 import React, { Component } from 'react';
+import {isNaN} from 'lodash';
 
 class StartActive extends Component {
   constructor(props) {
     super(props);
     this.startActiveService = props.startActiveService;
+    this.maxDays = props.maxDays ? props.maxDays : 30;
+
+    
     this.state = {
       isBusy: false,
-      done: 0,
+      qtyDone: 0,
       total: 0
     };
 
+    this.disabled = props.disabled;
     this.startActiveClick = this.startActiveClick.bind(this);
   }
 
   progress(done, total) {
     this.setState({
-      done: done,
+      qtyDone: done,
       total: total
     });
   }
 
-  setBusy(busy) {
+  setActive(busy) {
     this.setState({
       isBusy: busy
     });
   }
 
   startActiveClick(e) {
-    this.setBusy(true);
+    if (!this.state.isBusy) {
+      this.setActive(true);
 
-    this.startActiveService.startActive(new Date(), 10, this.progress.bind(this))
-      .then(() => {
-        this.setBusy(false);
-      });
+      this.startActiveService.startActive(new Date(), this.maxDays, this.progress.bind(this))
+        .then(() => {
+          this.setActive(false);
+        });
+    }
+  }
+
+  getPercentage(numerator, denominator) {
+    let number = numerator/denominator;
+    if (isNaN(number)) {
+      number = 0;
+    }
+    
+    return `${(number * 100).toFixed(0)}%`;
   }
 
   render() {
+    let progressLabel = '';
+    
+    let percentage = this.getPercentage(this.state.qtyDone, this.state.total);
+    if (this.state.isBusy) {
+      progressLabel = `${percentage} done`;
+    }
+
+    let progressStyle = {
+      width: percentage
+    }
+
+    let className = `Btn Btn-short Btn-primary Mend-med FSE-StartActive 
+      ${this.state.isBusy ? 'is-active' : ''} 
+      ${this.disabled || this.state.isBusy  ? 'Btn-disabled' : ''}`;
+
     return (
       <button
-        className="Btn Btn-short Btn-primary Mend-med FSE-StartActive"
+        className={className}
+        disabled={this.disabled}
         onClick={this.startActiveClick}>
-        {this.state.isBusy ? 'Busy' : 'Not Busy'}
+        <span className="FSE-StartActive-progressLabel">{progressLabel}</span>
+        {this.props.label}
       </button>
     );
   }

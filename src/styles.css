@@ -8,6 +8,9 @@
 .FSE-StartActive.is-active {
     color: #0078ff;
 }
+.FSE-StartActive .FSE-StartActive-progress {
+    display: none;
+}
 .FSE-StartActive.is-active .FSE-StartActive-progress {
     background: #0056b7;
     display: block;
@@ -30,9 +33,11 @@
     width: 100%;
     z-index: 1;
 }
-.FSE-StartActive.is-active:after {
+.FSE-StartActive .FSE-StartActive-progressLabel {
+    display: none;
+}
+.FSE-StartActive.is-active .FSE-StartActive-progressLabel {
     color: #fff;
-    content: attr(data-content);
     display: block;
     left: 0;
     position: absolute;

@@ -5,10 +5,6 @@ import format from 'date-fns/format';
 
 class StartActiveService {
   constructor(config) {
-    // setup url
-    this.daysToSet = 0;
-    this.daysDone = 0;
-
     this.config = {
       protocol: null,
       host: null,
@@ -18,7 +14,7 @@ class StartActiveService {
       crumb: null,
     };
 
-    this.validateConfig(config);
+    this.validateConfig(config); // throws if wrong
     this.config = config;
     this.startActiveUrl = `${config.protocol}://${config.host}/${config.league}/${config.leagueId}/${config.teamId}/startactiveplayers?crumb=${config.crumb}`;
   }
@@ -33,18 +29,17 @@ class StartActiveService {
   }
 
   startActive(startDate, daysToSet, progress) {
+    console.log(daysToSet);
     const urls = this.getStartActiveUrls(startDate, daysToSet);
-
-    this.daysToSet = daysToSet;
-    this.done = 0;
+    let daysDone = 0;
 
     return pMap(urls, url => {
       // TODO: validate that response is empty so these will be fire and forget
       return this.callUrl(url)
         .then(() => {
-          this.done++;
+          daysDone++;
           if (isFunction(progress)) {
-            progress(this.done, this.daysToSet);
+            progress(daysDone, daysToSet);
           }
         });
     }, { concurrency: 5 });
