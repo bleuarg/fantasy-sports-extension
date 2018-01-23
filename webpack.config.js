@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const path = require('path');
 const Jarvis = require('webpack-jarvis');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-
+const BabelEnginePlugin = require('babel-engine-plugin');
 
 module.exports = {
   entry: './src/main.js',
@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: /node_modules\/(?!p\-map)/, //p-map i
         use: {
           loader: 'babel-loader',
           options: {
@@ -48,9 +48,12 @@ module.exports = {
     // }),
     // new UglifyJSPlugin(),
     new LodashModuleReplacementPlugin(),
-    new Jarvis({
-      port: 1337
+    new BabelEnginePlugin({
+      presets: ['env', 'react']
     })
+    // new Jarvis({
+    //   port: 1337
+    // })
   ],
   devServer: {
     contentBase: path.join(__dirname, 'output'),
