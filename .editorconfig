@@ -9,5 +9,5 @@ insert_final_newline = false
 [*.md]
 trim_trailing_whitespace = false
 
-[*.css]
+[*.{css,html}]
 indent_size = 4

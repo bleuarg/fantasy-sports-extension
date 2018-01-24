@@ -7,7 +7,8 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 module.exports = {
   entry: './src/main.js',
   output: {
-    filename: './built/bundle.js'
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'built')
   },
   module: {
     rules: [
@@ -41,15 +42,6 @@ module.exports = {
     ],
   },
   plugins: [
-    // new webpack.DefinePlugin({
-    //   'process.env.NODE_ENV': JSON.stringify('production')
-    // }),
-    // new UglifyJSPlugin(),
     new LodashModuleReplacementPlugin()
-  ],
-  devServer: {
-    contentBase: path.join(__dirname, 'output'),
-    compress: false,
-    port: 8080
-  }
+  ]
 };
