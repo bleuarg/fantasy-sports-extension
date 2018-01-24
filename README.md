@@ -1,5 +1,5 @@
 # Fantasy Sport Extension
-Start active players on your Yahoo Fantasy team for the whole season.
+This extension adds a `Start active players` button on your Yahoo Fantasy team dashboard to start active players for every day of the season.
 
 ## Supports
 - Baseball
