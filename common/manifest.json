@@ -6,7 +6,8 @@
   "content_scripts": [
     {
       "matches": ["https://*.fantasysports.yahoo.com/*", "http://localhost:8080/*"],
-      "js": ["bundle.js"]
+      "js": ["bundle.js"],
+      "run_at": "document_start"
     }
   ],
   "icons": {
