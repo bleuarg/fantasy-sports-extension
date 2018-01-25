@@ -7,7 +7,7 @@
     "start": "npm-run-all --parallel start:*",
     "build:webpack": "webpack --config webpack.prod.js",
     "build:gulp": "gulp build",
-    "start:webpack": "webpack-dev-server --open --config webpack.dev.js",
+    "start:webpack": "webpack --watch --config webpack.dev.js",
     "start:gulp": "gulp watch",
     "postbuild": "gulp package"
   },

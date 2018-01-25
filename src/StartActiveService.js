@@ -34,7 +34,6 @@ class StartActiveService {
     let daysDone = 0;
 
     return pMap(urls, url => {
-      // TODO: validate that response is empty so these will be fire and forget
       return this.callUrl(url)
         .then(() => {
           daysDone++;
@@ -59,15 +58,17 @@ class StartActiveService {
   }
 
   callUrl(url, progress) {
-    const fetch = () => { return new Promise(resolve => setTimeout(resolve, Math.round(Math.random()*300))); };
+    // const fetch = (url) => { return new Promise(resolve => {
+    //   console.log(url);
+    //   setTimeout(resolve, Math.round(Math.random()*300))
+    // }); };
 
-    return fetch(url);
+    // return fetch(url);
 
-  //   return fetch(url, {
-  //     credentials: 'include'
-  //     })
-  //     .then(increment);
-  // }
+    return fetch(url, {
+      credentials: 'include'
+      })
+  }
   }
 }
 

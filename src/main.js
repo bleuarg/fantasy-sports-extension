@@ -10,11 +10,10 @@ import qs from 'qs';
 import App from './App';
 import css from './styles.css';
 
-
-
 function getAppConfig() {
   const appConfig = {};
   const startActiveUrl = new URL(document.querySelector('a[href*=startactiveplayers]').href);
+  const startActiveQs = qs.parse(startActiveUrl.query, { ignoreQueryPrefix: true });
   const url = startActiveUrl.pathname.split('/');
   const metaElement = document.getElementById('yucs-meta');
 
@@ -29,7 +28,8 @@ function getAppConfig() {
 
   // host is {sport}.fantasysports.yahoo.com
   appConfig.sport = appConfig.host.split('.')[0];
-  appConfig.crumb = qs.parse(startActiveUrl.query).crumb;
+  appConfig.crumb = startActiveQs.crumb;
+  appConfig.startDate = startActiveQs.date;
 
   return appConfig;
 }
@@ -87,7 +87,7 @@ initApp();
 
 // const authStates = {
 //   middleAuth: 'middleauth',
-//   signedIn: 'signedin',
+//   signedIn: 'a',
 // };
 
 // // todo refactor setup

@@ -6,7 +6,7 @@ class StartActive extends Component {
     super(props);
     this.startActiveService = props.startActiveService;
     this.maxDays = props.maxDays ? props.maxDays : 30;
-
+    this.startDate = props.startDate;
 
     this.state = {
       isBusy: false,
@@ -35,7 +35,7 @@ class StartActive extends Component {
     if (!this.state.isBusy) {
       this.setActive(true);
 
-      this.startActiveService.startActive(new Date(), this.maxDays, this.progress.bind(this))
+      this.startActiveService.startActive(this.startDate, this.maxDays, this.progress.bind(this))
         .then(() => {
           this.setActive(false);
         });
@@ -67,8 +67,9 @@ class StartActive extends Component {
       ${this.state.isBusy ? 'is-active' : ''}
       ${this.disabled || this.state.isBusy  ? 'Btn-disabled' : ''}`;
 
-    return (
+      return (
       <button
+        title={this.props.title}
         className={className}
         disabled={this.disabled}
         onClick={this.startActiveClick}>
