@@ -1,15 +1,25 @@
-# yahoo-fantasy-start-active-players
-Start active players on your Yahoo Fantasy team
+# Fantasy Sports Extension
+This extension adds a `Start active players` button on your Yahoo Fantasy team dashboard to start active players for every day of the season.
 
-### Supports
+## Supported sports
 - Baseball
 - Basketball
 - (American) Football
 - Hockey
 
-### How To Use
-Copy and paste everything from [script.js](./script.js) into your console while on your fantasy team's roster page. More instructions inside of `script.js`.
+## Development
+Development tested on node >= 6.
 
-### Gist
-Original Gist of the project from 2013/2014 can be found [here](https://gist.github.com/devinmcinnis/8109488).
+```
+yarn
+yarn start
+```
+or with npm
+```
+npm i
+npm start
+```
 
+
+## Prior art
+Original script that inspired this extension can be found [here](https://github.com/devinmcinnis/yahoo-fantasy-start-active-players)
