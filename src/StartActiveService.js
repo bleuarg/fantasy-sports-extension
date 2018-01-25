@@ -67,8 +67,7 @@ class StartActiveService {
 
     return fetch(url, {
       credentials: 'include'
-      })
-  }
+    });
   }
 }
 
