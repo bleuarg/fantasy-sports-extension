@@ -2,6 +2,10 @@
   "name": "fantasy-sports-extension",
   "version": "1.0.0",
   "author": "Patrick Davies <me@patrickdavies.ca> (https://patrickdavies.ca)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bleuarg/fantasy-sports-extension"
+  },
   "scripts": {
     "build": "npm-run-all build:webpack build:gulp",
     "start": "npm-run-all --parallel start:*",
