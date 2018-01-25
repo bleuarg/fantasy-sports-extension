@@ -1,6 +1,6 @@
 {
   "name": "fantasy-sports-extension",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "Patrick Davies <me@patrickdavies.ca> (https://patrickdavies.ca)",
   "scripts": {
     "build": "npm-run-all build:webpack build:gulp",

@@ -1,4 +1,4 @@
-# Fantasy Sport Extension
+# Fantasy Sports Extension
 This extension adds a `Start active players` button on your Yahoo Fantasy team dashboard to start active players for every day of the season.
 
 ## Supported sports
