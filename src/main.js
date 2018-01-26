@@ -7,8 +7,8 @@ import ReactDOM from 'react-dom';
 import URL from 'url-parse';
 import qs from 'qs';
 
-import App from './App';
-import css from './styles.css';
+import App from './components/App';
+import css from './main.css';
 
 function getAppConfig() {
   const appConfig = {};
