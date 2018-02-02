@@ -1,6 +1,8 @@
 {
   "name": "fantasy-sports-extension",
-  "version": "1.0.0",
+  "title": "Fantasy Sports Extension",
+  "version": "1.0.1",
+  "description": "Adds the option to set you roster for the whole season in Yahoo Fantasy Sports.",
   "author": "Patrick Davies <me@patrickdavies.ca> (https://patrickdavies.ca)",
   "repository": {
     "type": "git",
@@ -39,6 +41,8 @@
     "eslint-plugin-react": "^7.5.1",
     "gulp": "^3.9.1",
     "gulp-load-plugins": "^1.5.0",
+    "gulp-replace": "^0.6.1",
+    "gulp-template": "^5.0.0",
     "gulp-zip": "^4.1.0",
     "lodash-webpack-plugin": "^0.11.4",
     "npm-run-all": "^4.1.2",
