@@ -6,7 +6,8 @@ output/
 built/
 *.log
 npm-debug.log*
-
+coverage
+.nyc_output
 
 # Created by https://www.gitignore.io/api/osx,code,windows
 
