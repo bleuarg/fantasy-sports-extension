@@ -1,5 +1,5 @@
 import test from 'ava';
-import StartActiveService from '../src/StartActiveService';
+import StartActiveService from '../src/components/StartActiveService';
 import addDays from 'date-fns/add_days';
 import sinon from 'sinon';
 

@@ -29,7 +29,6 @@ class StartActiveService {
   }
 
   startActive(startDate, daysToSet, progress) {
-    console.log(daysToSet);
     const urls = this.getStartActiveUrls(startDate, daysToSet);
     let daysDone = 0;
 
