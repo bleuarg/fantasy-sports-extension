@@ -16,7 +16,6 @@
     "build:gulp": "gulp build",
     "start:webpack": "webpack --watch --config webpack.dev.js",
     "start:gulp": "gulp watch",
-    "start:stubby": "stubby",
     "postbuild": "gulp package"
   },
   "dependencies": {

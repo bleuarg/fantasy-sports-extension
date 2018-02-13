@@ -7,11 +7,11 @@ gulp.task('build', ['copy']);
 
 gulp.task('copy', () => {
   return gulp.src('./common/*')
-    .pipe(gulp.dest('./built/'));
+    .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('package', () => {
-  return gulp.src('./built/**/*')
+  return gulp.src('./dist/**/*')
     .pipe($.zip('./fantasy-sports-extension.zip'))
     .pipe(gulp.dest('./output/'));
 });
@@ -19,7 +19,7 @@ gulp.task('package', () => {
 gulp.task('manifest', () => {
   return gulp.src('./common/manifest.json')
     .pipe($.template(pkg))
-    .pipe(gulp.dest('./built'));
+    .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('watch', () => {
@@ -28,7 +28,7 @@ gulp.task('watch', () => {
 
 gulp.task('clean', () => {
   return del([
-    './built/**/*',
+    './dist/**/*',
     './output/**/*'
   ]);
 });
