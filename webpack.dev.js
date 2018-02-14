@@ -5,7 +5,7 @@ const path = require('path');
 module.exports = merge(common, {
   devtool: 'cheap-eval-source-map',
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname),
     compress: true,
     port: 9000
   }
