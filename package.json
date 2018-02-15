@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "nyc ava",
-    "build": "npm-run-all build:webpack build:gulp",
+    "build": "npm-run-all build:js build:gulp",
     "start": "npm-run-all --parallel start:*",
     "build:js": "webpack --config webpack.prod.js",
     "build:gulp": "gulp build",
