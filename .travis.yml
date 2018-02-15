@@ -15,7 +15,10 @@ script:
   - yarn run build
 
 deploy:
-  - output/fantasy-sports-extension.zip
+  file: output/fantasy-sports-extension.zip
+  skip_cleanup: true
+  on:
+    tags: true
 
 notifications:
   email: false
