@@ -47,7 +47,7 @@ class StartActiveService {
     let urls = [];
     let newDay;
 
-    // starts at 0 to add 0 days thus setting roster for current date.
+    // starts at 0, setting roster for current date.
     for (let i = 0; i < daysToSet; i++) {
       newDay = addDays(startDate, i);
       urls.push(`${this.startActiveUrl}&date=${format(newDay, 'YYYY-MM-DD')}`);
