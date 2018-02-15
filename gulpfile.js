@@ -3,6 +3,9 @@ const $ = require('gulp-load-plugins')();
 const del = require('del');
 const pkg = require('./package.json');
 
+// Simple tasks mainly to copy the extentions specific files and replace keys in
+// the manifest with data from the package.json
+
 gulp.task('build', ['copy']);
 
 gulp.task('copy', () => {

@@ -2,7 +2,7 @@
   "name": "fantasy-sports-extension",
   "title": "Fantasy Sports Extension",
   "version": "1.0.1",
-  "description": "Adds the option to set you roster for the whole season in Yahoo Fantasy Sports.",
+  "description": "Adds the option to set you roster for the whole week in Yahoo Fantasy Sports.",
   "author": "Patrick Davies <me@patrickdavies.ca> (https://patrickdavies.ca)",
   "repository": {
     "type": "git",
@@ -12,10 +12,11 @@
     "test": "nyc ava",
     "build": "npm-run-all build:webpack build:gulp",
     "start": "npm-run-all --parallel start:*",
-    "build:webpack": "webpack --config webpack.prod.js",
+    "build:js": "webpack --config webpack.prod.js",
     "build:gulp": "gulp build",
-    "start:webpack": "webpack-dev-server --config webpack.dev.js",
+    "start:js": "webpack-dev-server --config webpack.dev.js",
     "start:gulp": "gulp watch",
+    "start:stubs": "stubby -w -d stubs/yahoo.yml -l localhost -s 8882",
     "postbuild": "gulp package"
   },
   "dependencies": {
