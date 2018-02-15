@@ -1,0 +1,5 @@
+- request:
+    url: ^/hockey/34256/1/startactiveplayers/?$
+    method: GET
+  response:
+      status: 200

@@ -1,18 +1,22 @@
 {
   "name": "fantasy-sports-extension",
-  "version": "1.0.0",
+  "title": "Fantasy Sports Extension",
+  "version": "1.0.1",
+  "description": "Adds the option to set you roster for the whole week in Yahoo Fantasy Sports.",
   "author": "Patrick Davies <me@patrickdavies.ca> (https://patrickdavies.ca)",
   "repository": {
     "type": "git",
     "url": "https://github.com/bleuarg/fantasy-sports-extension"
   },
   "scripts": {
-    "build": "npm-run-all build:webpack build:gulp",
+    "test": "nyc ava",
+    "build": "npm-run-all build:js build:gulp",
     "start": "npm-run-all --parallel start:*",
-    "build:webpack": "webpack --config webpack.prod.js",
+    "build:js": "webpack --config webpack.prod.js",
     "build:gulp": "gulp build",
-    "start:webpack": "webpack --watch --config webpack.dev.js",
+    "start:js": "webpack-dev-server --config webpack.dev.js",
     "start:gulp": "gulp watch",
+    "start:stubs": "stubby -w -d stubs/yahoo.yml -l localhost -s 8882",
     "postbuild": "gulp package"
   },
   "dependencies": {
@@ -21,6 +25,7 @@
     "lodash": "^4.17.4",
     "p-map": "^1.2.0",
     "qs": "^6.5.1",
+    "stubby": "^4.0.0",
     "url": "^0.11.0"
   },
   "devDependencies": {
@@ -39,9 +44,12 @@
     "eslint-plugin-react": "^7.5.1",
     "gulp": "^3.9.1",
     "gulp-load-plugins": "^1.5.0",
+    "gulp-replace": "^0.6.1",
+    "gulp-template": "^5.0.0",
     "gulp-zip": "^4.1.0",
     "lodash-webpack-plugin": "^0.11.4",
     "npm-run-all": "^4.1.2",
+    "nyc": "^11.4.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "sinon": "^4.2.0",

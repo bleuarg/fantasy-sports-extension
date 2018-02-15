@@ -1,7 +1,24 @@
 language: node_js
+os: osx
 node_js:
   - "node"
-cache: yarn
+cache:
+  - yarn: true
+before_install:
+  - brew install gitversion
+  - yarn global add json
+install:
+  - yarn install --frozen-lockfile
 script:
-#  - yarn run test
+  - gitversion | json MajorMinorPatch | xargs npm --no-git-tag-version --allow-same-version version
+  # - yarn run test
   - yarn run build
+
+deploy:
+  file: output/fantasy-sports-extension.zip
+  skip_cleanup: true
+  on:
+    tags: true
+
+notifications:
+  email: false
