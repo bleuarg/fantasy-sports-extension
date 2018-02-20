@@ -1,13 +1,12 @@
 # Fantasy Sports Extension
-This extension adds a `Start active players` button on your Yahoo Fantasy team dashboard to start active players for every day of the remaining week.
+This extension adds the option to start active players for a whole week in Yahoo Fantasy Sports.
 
-I don't think it is useful to set roster for the whole year since with injuries, trades and such, you have to do it again, so I found that a per-week basis is good enough.
+Get it [in the Chrome Web Store](https://chrome.google.com/webstore/detail/diigodkdkmmhlgfolihillnmkbkbjpmc/).
+
+![Screenshot](https://github.com/bleuarg/fantasy-sports-extension/blob/master/store/screenshot-01.jpg?raw=1)
 
 ## Supported sports
-- Baseball
-- Basketball
-- (American) Football
-- Hockey
+Tested with Hockey, but should work with all sports. (Please [open an issue](https://github.com/bleuarg/fantasy-sports-extension/issues) if you run into weird behavior).
 
 ## Development
 Development tested on node >= 6.
@@ -15,11 +14,6 @@ Development tested on node >= 6.
 ```
 yarn
 yarn start
-```
-or with npm
-```
-npm i
-npm start
 ```
 
 ## References
