@@ -38,6 +38,26 @@ module.exports = {
           { loader: 'style-loader' },
           { loader: 'css-loader' }
         ]
+      },
+      {
+        test: /\.svg/,
+        use: {
+          loader: 'svg-url-loader',
+          options: {}
+        }
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              useRelativePath: true,
+              fallback: 'file-loader',
+              limit: 12000 // we only have 1 gif that is 10ko.
+            }
+          }
+        ]
       }
     ],
   },

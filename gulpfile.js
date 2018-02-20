@@ -15,7 +15,7 @@ gulp.task('copy', () => {
 
 gulp.task('package', () => {
   return gulp.src('./dist/**/*')
-    .pipe($.zip('./fantasy-sports-extension.zip'))
+    .pipe($.zip('./chrome.zip'))
     .pipe(gulp.dest('./output/'));
 });
 

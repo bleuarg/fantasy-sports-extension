@@ -1,0 +1,73 @@
+.FSE-DateLine {
+    padding: 5px 10px;
+    margin: 0 -10px;
+    border-bottom: solid 1px #e3e3e3;
+    display: flex;
+    align-items: center;
+}
+.DateLine-day {
+
+}
+.DateLine-progress {
+    flex-grow: 1;
+    text-align: right;
+}
+.DateLine-date {
+    font-size: 11px;
+    color: #888;
+    margin-left: 5px;
+    margin-top: 3px;
+}
+.DateLine-dateIcon {
+    background-size: contain;
+    margin-right: 5px;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+
+.DateLine-statusIcon {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 24px;
+    height: 24px;
+    display: block;
+    float: right;
+}
+
+.DateLine-iconSuccess { background-image: url('../images/ok.png'); }
+.DateLine-iconBusy { background-image: url('../images/loading.gif'); background-size: 22px 22px; }
+.DateLine-iconError { background-image: url('../images/error.png'); }
+
+.DateLine-dateIcon-1 { background-image: url('../images/calendar-1.png'); }
+.DateLine-dateIcon-2 { background-image: url('../images/calendar-2.png'); }
+.DateLine-dateIcon-3 { background-image: url('../images/calendar-3.png'); }
+.DateLine-dateIcon-4 { background-image: url('../images/calendar-4.png'); }
+.DateLine-dateIcon-5 { background-image: url('../images/calendar-5.png'); }
+.DateLine-dateIcon-6 { background-image: url('../images/calendar-6.png'); }
+.DateLine-dateIcon-7 { background-image: url('../images/calendar-7.png'); }
+.DateLine-dateIcon-8 { background-image: url('../images/calendar-8.png'); }
+.DateLine-dateIcon-9 { background-image: url('../images/calendar-9.png'); }
+.DateLine-dateIcon-10 { background-image: url('../images/calendar-10.png'); }
+.DateLine-dateIcon-11 { background-image: url('../images/calendar-11.png'); }
+.DateLine-dateIcon-12 { background-image: url('../images/calendar-12.png'); }
+.DateLine-dateIcon-13 { background-image: url('../images/calendar-13.png'); }
+.DateLine-dateIcon-14 { background-image: url('../images/calendar-14.png'); }
+.DateLine-dateIcon-15 { background-image: url('../images/calendar-15.png'); }
+.DateLine-dateIcon-16 { background-image: url('../images/calendar-16.png'); }
+.DateLine-dateIcon-17 { background-image: url('../images/calendar-17.png'); }
+.DateLine-dateIcon-18 { background-image: url('../images/calendar-18.png'); }
+.DateLine-dateIcon-19 { background-image: url('../images/calendar-19.png'); }
+.DateLine-dateIcon-20 { background-image: url('../images/calendar-20.png'); }
+.DateLine-dateIcon-21 { background-image: url('../images/calendar-21.png'); }
+.DateLine-dateIcon-22 { background-image: url('../images/calendar-22.png'); }
+.DateLine-dateIcon-23 { background-image: url('../images/calendar-23.png'); }
+.DateLine-dateIcon-24 { background-image: url('../images/calendar-24.png'); }
+.DateLine-dateIcon-25 { background-image: url('../images/calendar-25.png'); }
+.DateLine-dateIcon-26 { background-image: url('../images/calendar-26.png'); }
+.DateLine-dateIcon-27 { background-image: url('../images/calendar-27.png'); }
+.DateLine-dateIcon-28 { background-image: url('../images/calendar-28.png'); }
+.DateLine-dateIcon-29 { background-image: url('../images/calendar-29.png'); }
+.DateLine-dateIcon-30 { background-image: url('../images/calendar-30.png'); }
+.DateLine-dateIcon-31 { background-image: url('../images/calendar-31.png'); }

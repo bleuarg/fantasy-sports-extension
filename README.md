@@ -22,6 +22,8 @@ npm i
 npm start
 ```
 
+## References
+Icons from [Icons8](https://icons8.com).
 
 ## Prior art
 Original script that inspired this extension can be found [here](https://github.com/devinmcinnis/yahoo-fantasy-start-active-players)

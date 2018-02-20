@@ -16,15 +16,18 @@
     "build:gulp": "gulp build",
     "start:js": "webpack-dev-server --config webpack.dev.js",
     "start:gulp": "gulp watch",
-    "start:stubs": "stubby -w -d stubs/yahoo.yml -l localhost -s 8882",
+    "start:stubs": "stubby -w -d stubs/yahoo.yml -l localhost -s 8899",
     "postbuild": "gulp package"
   },
   "dependencies": {
     "date-fns": "^1.29.0",
     "left-pad": "^1.2.0",
     "lodash": "^4.17.4",
+    "memoizee": "^0.4.11",
     "p-map": "^1.2.0",
+    "prop-types": "^15.6.0",
     "qs": "^6.5.1",
+    "react-modal": "^3.2.1",
     "stubby": "^4.0.0",
     "url": "^0.11.0"
   },
@@ -47,6 +50,7 @@
     "gulp-replace": "^0.6.1",
     "gulp-template": "^5.0.0",
     "gulp-zip": "^4.1.0",
+    "image-webpack-loader": "^4.1.0",
     "lodash-webpack-plugin": "^0.11.4",
     "npm-run-all": "^4.1.2",
     "nyc": "^11.4.1",
@@ -55,7 +59,9 @@
     "sinon": "^4.2.0",
     "sinon-stub-promise": "^4.0.0",
     "style-loader": "^0.19.1",
+    "svg-url-loader": "^2.3.1",
     "uglifyjs-webpack-plugin": "^1.1.6",
+    "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.0",
     "webpack-merge": "^4.1.1"
