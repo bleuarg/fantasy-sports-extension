@@ -10,6 +10,8 @@ class Dates extends Component {
 
   handleCloseClick() {
     if (this.props.closeModal) {
+      // reload the window for the changes to current day to show up to the user.
+      window.location.reload();
       this.props.closeModal();
     }
   }

@@ -6,10 +6,10 @@ const pkg = require('./package.json');
 // Simple tasks mainly to copy the extentions specific files and replace keys in
 // the manifest with data from the package.json
 
-gulp.task('build', ['copy']);
+gulp.task('build', ['copy', 'manifest']);
 
 gulp.task('copy', () => {
-  return gulp.src('./common/*')
+  return gulp.src('./common/**/!(manifest.json)')
     .pipe(gulp.dest('./dist/'));
 });
 

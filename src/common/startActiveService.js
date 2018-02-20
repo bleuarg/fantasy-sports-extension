@@ -63,6 +63,12 @@ class StartActiveService {
   callUrl(url) {
     return fetch(url, {
       credentials: 'include'
+    })
+    .then(res => res.text())
+    .then(body => {
+      if (/F-error/gm.test(body)) {
+        throw 'Error displayed on the result page';
+      }
     });
   }
 }

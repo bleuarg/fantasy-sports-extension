@@ -4,3 +4,11 @@
   response:
       status: 200
       latency: 1000
+
+- request:
+    url: ^/hockey/666/1/startactiveplayers/?$
+    method: GET
+  response:
+      status: 200
+      latency: 1000
+      file: error-readonly.html

@@ -22,14 +22,14 @@ class DateLine extends Component {
 
   callApi() {
     startActiveService.setForDate(this.props.date)
-      .catch(e => {
-        this.setState({
-          status: status.ERROR
-        });
-      })
       .then(() => {
         this.setState({
           status: status.SUCCESS
+        });
+      })
+      .catch(e => {
+        this.setState({
+          status: status.ERROR
         });
       });
   }
