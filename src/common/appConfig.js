@@ -1,6 +1,5 @@
 import URL from 'url-parse';
 import qs from 'qs';
-import memoize from 'memoizee';
 
 function getAppConfig() {
   const appConfig = {};
@@ -22,8 +21,6 @@ function getAppConfig() {
   appConfig.sport = appConfig.host.split('.')[0];
   appConfig.crumb = startActiveQs.crumb;
   appConfig.startDate = startActiveQs.date;
-
-  console.log(appConfig, 'in app config');
 
   return appConfig;
 }

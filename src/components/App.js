@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import parseDate from 'date-fns/parse';
 import appConfig from '../common/appConfig';
 import StartActiveButton from './StartActiveButton';
+import 'react-tippy/dist/tippy.css';
+import { Tooltip } from 'react-tippy';
+
 
 export default class App extends Component {
   constructor(props) {
@@ -14,13 +17,23 @@ export default class App extends Component {
   }
 
   render() {
+    const isDisabled = this.authState !== 'signedin';
     return (
       <div>
-        <StartActiveButton
-          disabled={this.authState !== 'signedin'}
-          title={this.authState !== 'signedin' ? 'You need to "Start Active Players" at least once for this button to be active.' : ''}
-          label="Start for whole week"
-          startDate={this.startDate} />
+        <Tooltip
+          disabled={!isDisabled}
+          title={isDisabled ? 'You need to "Start Active Players" at least once for this button to be active.' : ''}
+          arrow="true"
+          arrowSize="small"
+          size="small"
+          animation="fade"
+          position="top">
+          <StartActiveButton
+            disabled={isDisabled}
+            label="Start For Rest Of Week"
+            startDate={this.startDate}
+          />
+        </Tooltip>
       </div>
     );
   }
