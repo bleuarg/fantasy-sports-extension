@@ -17,7 +17,8 @@ class DateLine extends Component {
       status: status.BUSY
     };
 
-    this.callApi();
+    const delay = this.props.delay ? this.props.delay : 0;
+    setTimeout(this.callApi.bind(this), delay);
   }
 
   callApi() {

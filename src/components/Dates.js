@@ -19,7 +19,8 @@ class Dates extends Component {
   render() {
     let lines = [];
     if (this.props.dates && this.props.dates.length > 0) {
-      this.props.dates.forEach((date, i) => lines.push(<DateLine key={i} date={date}/>));
+      const delay = 150;
+      this.props.dates.forEach((date, i) => lines.push(<DateLine key={i} delay={i * delay} date={date}/>));
     }
     return (
       <div className="FSE-Dates">
