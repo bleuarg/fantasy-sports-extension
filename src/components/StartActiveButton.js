@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-
-import startActiveService, {ranges} from '../common/startActiveService';
+import getWeekDates from '../common/getWeekDates';
 import Dates from './Dates';
 import './StartActive.css';
 
@@ -21,7 +20,7 @@ class StartActiveButton extends Component {
 
   startActiveClick() {
       this.setState({
-        dates: startActiveService.getDates(this.startDate, ranges.WEEK),
+        dates: getWeekDates(this.startDate),
         modalIsOpen: true
       });
   }

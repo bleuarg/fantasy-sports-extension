@@ -9,7 +9,9 @@
     "url": "https://github.com/bleuarg/fantasy-sports-extension"
   },
   "scripts": {
-    "test": "nyc ava",
+    "test": "npm-run-all test:*",
+    "test:tests": "nyc ava",
+    "test:reports": "nyc report",
     "build": "npm-run-all build:js build:gulp",
     "start": "npm-run-all --parallel start:*",
     "build:js": "webpack --config webpack.prod.js",
@@ -20,6 +22,7 @@
     "postbuild": "gulp package"
   },
   "dependencies": {
+    "browser-env": "^3.2.5",
     "date-fns": "^1.29.0",
     "lodash": "^4.17.4",
     "qs": "^6.5.1",
@@ -65,12 +68,25 @@
   },
   "ava": {
     "files": [
-      "tests/*.js"
+      "src/**/*.spec.js"
     ],
     "require": [
-      "babel-register"
+      "babel-register",
+      "./test/helpers/setup-browser-env.js"
     ],
     "babel": "inherit",
     "verbose": true
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "src/**/*.spec.js"
+    ],
+    "reporter": [
+      "lcov",
+      "html"
+    ]
   }
 }

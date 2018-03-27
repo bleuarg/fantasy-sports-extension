@@ -23,13 +23,13 @@ class Dates extends Component {
       this.props.dates.forEach((date, i) => lines.push(<DateLine key={i} delay={i * delay} date={date}/>));
     }
     return (
-      <div className="FSE-Dates">
-        <header className="Dates-header">
+      <div>
+        <header className="FSE-Dates-header">
           Start active players
           <a className="F-link" onClick={this.handleCloseClick}>Close</a>
         </header>
         {lines}
-        <footer className="Dates-footer">
+        <footer className="FSE-Dates-footer">
           <a className="Btn Btn-short" onClick={this.handleCloseClick}>Done</a>
         </footer>
       </div>

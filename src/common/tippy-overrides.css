@@ -1,0 +1,6 @@
+.tippy-popper {
+    z-index: 10006 !important;
+}
+.tippy-popper {
+    max-width: 300px;
+}

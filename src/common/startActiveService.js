@@ -1,14 +1,5 @@
-import {keys} from 'lodash';
-import addDays from 'date-fns/add_days';
+import { keys } from 'lodash';
 import formatDate from 'date-fns/format';
-import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
-import endOfWeek from 'date-fns/end_of_week';
-import appConfig from '../common/appConfig';
-
-export const ranges = {
-  WEEK: 'WEEK',
-  MONTH: 'MONTH'
-};
 
 class StartActiveService {
   constructor(config) {
@@ -35,29 +26,12 @@ class StartActiveService {
     }
   }
 
-  getDates(startDate, range) {
-    let dates = [];
-    const endDate = endOfWeek(startDate, { weekStartsOn: 1 });
-    const days = differenceInCalendarDays(endDate, startDate) + 1;
-
-    switch(range) {
-      case ranges.WEEK:
-      default:
-        for (let i = 0; i < days; i++) {
-          dates.push(formatDate(addDays(startDate, i), 'YYYY-MM-DD'));
-        }
-      break;
-    }
-
-    return dates;
-  }
-
-  getUrl(date) {
+  getUrlForDate(date) {
     return `${this.startActiveUrl}&date=${formatDate(date, 'YYYY-MM-DD')}`;
   }
 
   setForDate(date) {
-    return this.callUrl(this.getUrl(date));
+    return this.callUrl(this.getUrlForDate(date));
   }
 
   callUrl(url) {
@@ -66,11 +40,13 @@ class StartActiveService {
     })
     .then(res => res.text())
     .then(body => {
+      // F-error, class found in the body of an error page.
+      // a bit fragile, but fine for our usage for now.
       if (/F-error/gm.test(body)) {
-        throw 'Error displayed on the result page';
+        throw new Error('Error displayed on the result page');
       }
     });
   }
 }
 
-export default new StartActiveService(appConfig);
+export default StartActiveService;

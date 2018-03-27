@@ -1,30 +1,13 @@
-
 .ReactModalPortal {
     position: relative;
     z-index: 10005;
 }
 
-.FSE-Dates {
-
-}
-
-
-
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
 .FSE-Modal-content {
     animation-name: fadeInDown;
-    animation-duration: .3s;
+    animation-duration: 0.3s;
     animation-fill-mode: both;
-    animation-delay: .1s;
+    animation-delay: 0.1s;
     left: 50%;
     top: 10%;
     transform: translateX(-50%);
@@ -39,10 +22,9 @@
     width: 300px;
     max-height: 80%;
     z-index: 200001;
-
 }
 .FSE-Modal-overlay {
-    animation: fadeInDown .3s both;
+    animation: fadeInDown 0.3s both;
     position: fixed;
     top: 0px;
     left: 0px;
@@ -51,9 +33,7 @@
     background-color: #ffffffbf;
 }
 
-
-
-.Dates-header {
+.FSE-Dates-header {
     font-weight: bold;
     text-align: left;
     border-bottom: solid 1px #e3e3e3;
@@ -62,13 +42,23 @@
     display: flex;
     justify-content: space-between;
 }
-.Dates-footer {
+.FSE-Dates-footer {
     font-weight: bold;
     text-align: center;
     padding: 10px 10px;
     margin: 0 -10px;
 }
-.Dates-header a,
-.Dates-footer a {
+.FSE-Dates-header a,
+.FSE-Dates-footer a {
     cursor: pointer;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
