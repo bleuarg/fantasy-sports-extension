@@ -4,21 +4,44 @@ node_js:
   - "node"
 cache:
   - yarn: true
+branches:
+  only:
+  - master
 before_install:
   - brew install gitversion
   - yarn global add json
 install:
   - yarn install --frozen-lockfile
 script:
-  # - gitversion | json MajorMinorPatch | xargs npm --no-git-tag-version --allow-same-version version
-  # - yarn run test
   - yarn run build
 
-deploy:
-  file: output/chrome.zip
-  skip_cleanup: true
-  on:
-    tags: true
 
 notifications:
   email: false
+
+jobs:
+  include:
+    - stage: test
+      script: yarn test
+
+    - stage: build
+      script:
+        - gitversion | json MajorMinorPatch | xargs npm --no-git-tag-version --allow-same-version version
+        - yarn run build
+
+    - stage: Tag version and commit package.json
+      script:
+        - gitversion | json MajorMinorPatch | xargs npm --no-git-tag-version --allow-same-version version
+        - .travis/commit.sh
+
+    - stage: GitHub Release
+      script: echo "Pushing release to GitHub"
+      deploy:
+        provider: releases
+        api_key: $GITHUB_OAUTH_TOKEN
+        file: output/chrome.zip
+        skip_cleanup: true
+        on:
+          tags: true
+
+          #TRAVIS_PULL_REQUEST
