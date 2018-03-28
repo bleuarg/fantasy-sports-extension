@@ -19,6 +19,14 @@ script:
 notifications:
   email: false
 
+stages:
+  - build
+  - test
+  - name: tag
+    if: branch = master AND TRAVIS_PULL_REQUEST = false
+  - name: release
+    if: branch = master AND TRAVIS_PULL_REQUEST = false
+
 jobs:
   include:
     - stage: test
@@ -29,12 +37,12 @@ jobs:
         - gitversion | json MajorMinorPatch | xargs npm --no-git-tag-version --allow-same-version version
         - yarn run build
 
-    - stage: Tag version and commit package.json
+    - stage: tag
       script:
         - gitversion | json MajorMinorPatch | xargs npm --no-git-tag-version --allow-same-version version
         - .travis/commit.sh
 
-    - stage: GitHub Release
+    - stage: release
       script: echo "Pushing release to GitHub"
       deploy:
         provider: releases
