@@ -4,9 +4,6 @@ node_js:
   - "node"
 cache:
   - yarn: true
-branches:
-  only:
-  - master
 before_install:
   - brew install gitversion
   - yarn global add json
@@ -15,17 +12,16 @@ install:
 script:
   - yarn run build
 
-
 notifications:
   email: false
 
 stages:
-  - build
   - test
+  - build
   - name: tag
-    if: branch = master AND TRAVIS_PULL_REQUEST = false
+    if: TRAVIS_PULL_REQUEST = false
   - name: release
-    if: branch = master AND TRAVIS_PULL_REQUEST = false
+    if: TRAVIS_PULL_REQUEST = false
 
 jobs:
   include:
@@ -39,17 +35,16 @@ jobs:
 
     - stage: tag
       script:
-        - gitversion | json MajorMinorPatch | xargs npm --no-git-tag-version --allow-same-version version
-        - .travis/commit.sh
+        - gitversion | json MajorMinorPatch | xargs npm --allow-same-version version
+        - .travis/push.sh
 
     - stage: release
       script: echo "Pushing release to GitHub"
       deploy:
         provider: releases
         api_key: $GITHUB_OAUTH_TOKEN
-        file: output/chrome.zip
+        file: dist/chrome.zip
         skip_cleanup: true
         on:
           tags: true
-
-          #TRAVIS_PULL_REQUEST
+          branch: master
