@@ -35,7 +35,7 @@ jobs:
 
     - stage: tag
       script:
-        - gitversion | json MajorMinorPatch | xargs npm --allow-same-version --force version
+        - gitversion | json MajorMinorPatch | xargs npm --allow-same-version version
         - .travis/push.sh
 
     - stage: release
