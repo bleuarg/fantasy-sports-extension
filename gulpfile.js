@@ -10,19 +10,19 @@ gulp.task('build', ['copy', 'manifest']);
 
 gulp.task('copy', () => {
   return gulp.src('./common/**/!(manifest.json)')
-    .pipe(gulp.dest('./dist/'));
+    .pipe(gulp.dest('./output/'));
 });
 
 gulp.task('package', () => {
-  return gulp.src('./dist/**/*')
+  return gulp.src('./output/**/*')
     .pipe($.zip('./chrome.zip'))
-    .pipe(gulp.dest('./output/'));
+    .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('manifest', () => {
   return gulp.src('./common/manifest.json')
     .pipe($.template(pkg))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('./output'));
 });
 
 gulp.task('watch', () => {
