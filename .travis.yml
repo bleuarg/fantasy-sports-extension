@@ -30,12 +30,11 @@ jobs:
 
     - stage: build
       script:
-        - gitversion | json MajorMinorPatch | xargs npm --no-git-tag-version --allow-same-version version
-        - yarn run build
+        - gitversion | json MajorMinorPatch | xargs yarn run build --versionOverride
 
     - stage: tag
       script:
-        - gitversion | json MajorMinorPatch | xargs npm --allow-same-version version
+        - gitversion | json MajorMinorPatch | xargs npm version
         - .travis/push.sh
 
     - stage: release
