@@ -25,16 +25,19 @@ jobs:
   include:
     - stage: test
       script: yarn test
+      skip_cleanup: true
 
     - stage: build
       before_install: skip
       install: skip
+      skip_cleanup: true
       script:
         - gitversion /output json | json MajorMinorPatch | xargs yarn run build --versionOverride
 
     - stage: tag
       before_install: skip
       install: skip
+      skip_cleanup: true
       script:
         - gitversion /output json | json MajorMinorPatch | xargs npm version
         - .travis/push.sh
