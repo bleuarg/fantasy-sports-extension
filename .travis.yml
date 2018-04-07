@@ -27,15 +27,21 @@ jobs:
       script: yarn test
 
     - stage: build
+      before_install: skip
+      install: skip
       script:
         - gitversion /output json | json MajorMinorPatch | xargs yarn run build --versionOverride
 
     - stage: tag
+      before_install: skip
+      install: skip
       script:
         - gitversion /output json | json MajorMinorPatch | xargs npm version
         - .travis/push.sh
 
     - stage: release
+      before_install: skip
+      install: skip
       script: echo "Pushing release to GitHub"
       deploy:
         provider: releases
