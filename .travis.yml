@@ -1,24 +1,37 @@
 language: node_js
 os: osx
+env:
+  - HOMEBREW_NO_AUTO_UPDATE=1
+git:
+  depth: false
 node_js:
   - "node"
 cache:
   - yarn: true
 before_install:
   - brew install gitversion
-  - yarn global add json
+  - yarn global add chrome-webstore-upload-cli
 install:
   - yarn install --frozen-lockfile
-script:
-  # - gitversion | json MajorMinorPatch | xargs npm --no-git-tag-version --allow-same-version version
-  # - yarn run test
-  - yarn run build
-
-deploy:
-  file: output/chrome.zip
-  skip_cleanup: true
-  on:
-    tags: true
 
 notifications:
   email: false
+
+script:
+  - ./.travis/build.sh
+
+deploy:
+  - provider: releases
+    api_key: $GITHUB_OAUTH_TOKEN
+    file: dist/chrome.zip
+    skip_cleanup: true
+    on:
+      tags: true
+      branch: master
+
+  - provider: script
+    script: webstore upload --source dist/chrome.zip --extension-id $GWS_EXTENSION_ID --client-id $GWS_CLIENT_ID --client-secret $GWS_CLIENT_SECRET --refresh-token $GWS_REFRESH_TOKEN
+    skip_cleanup: true
+    on:
+      tags: true
+      branch: master
