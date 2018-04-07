@@ -1,5 +1,6 @@
 #!/bin/bash
 set -ev;
+
 yarn test;
 gitversion /Output json /ShowVariable MajorMinorPatch | xargs yarn run build --versionOverride;
 
