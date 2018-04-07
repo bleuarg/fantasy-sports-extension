@@ -8,6 +8,7 @@ node_js:
   - "node"
 cache:
   - yarn: true
+
 before_install:
   - brew install gitversion
   - yarn global add chrome-webstore-upload-cli
@@ -16,6 +17,10 @@ install:
 
 notifications:
   email: false
+
+before_script:
+  - git config --global user.email "me@patrickdavies.ca"
+  - git config --global user.name "Travis-CI"
 
 script:
   - ./.travis/build.sh
