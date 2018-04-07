@@ -1,5 +1,7 @@
 language: node_js
 os: osx
+env:
+  - HOMEBREW_NO_AUTO_UPDATE=1
 git:
   depth: false
 node_js:
@@ -8,8 +10,6 @@ cache:
   - yarn: true
 before_install:
   - brew install gitversion
-  - yarn global add json
-  - git fetch --tags
 install:
   - yarn install --frozen-lockfile
 
