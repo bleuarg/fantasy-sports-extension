@@ -8,7 +8,6 @@ before_install:
   - brew install gitversion
   - yarn global add json
 install:
-  - git fetch origin --tags
   - yarn install --frozen-lockfile
 
 notifications:
@@ -29,11 +28,11 @@ jobs:
 
     - stage: build
       script:
-        - gitversion | json MajorMinorPatch | xargs yarn run build --versionOverride
+        - gitversion /output json | json MajorMinorPatch | xargs yarn run build --versionOverride
 
     - stage: tag
       script:
-        - gitversion | json MajorMinorPatch | xargs npm version
+        - gitversion /output json | json MajorMinorPatch | xargs npm version
         - .travis/push.sh
 
     - stage: release
