@@ -1,7 +1,7 @@
 {
   "name": "fantasy-sports-extension",
   "title": "Fantasy Sports Extension",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Adds the option to start active players for a whole week in Yahoo Fantasy Sports.",
   "author": "Patrick Davies <me@patrickdavies.ca> (https://patrickdavies.ca)",
   "repository": {
