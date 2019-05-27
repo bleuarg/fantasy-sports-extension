@@ -1,7 +1,11 @@
 # Fantasy Sports Extension
-This extension adds the option to start active players for a whole week in Yahoo Fantasy Sports.
 
-Get it [in the Chrome Web Store](https://chrome.google.com/webstore/detail/diigodkdkmmhlgfolihillnmkbkbjpmc/).
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+> **DEPRECATED**  
+> This extension is now deprecated and not supported anymore, Yahoo implemented the feature natively.
+
+This extension adds the option to start active players for a whole week in Yahoo Fantasy Sports.
 
 ![Screenshot](https://github.com/bleuarg/fantasy-sports-extension/blob/master/store/screenshot-01.jpg?raw=1)
 
